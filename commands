@@ -1,0 +1,8 @@
+#criar as tabelas no prisma
+
+docker-compose exec api npx prisma migrate dev --name init
+
+
+#executar o seed
+
+docker-compose exec api npx prisma db seed
