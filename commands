@@ -6,3 +6,11 @@ docker-compose exec api npx prisma migrate dev --name init
 #executar o seed
 
 docker-compose exec api npx prisma db seed
+
+
+make up        # sobe tudo
+make migrate   # aplica migrações
+make seed      # executa dados mockados
+make studio    # abre Prisma Studio
+make dev       # inicia NestJS em modo watch
+make sh        # entra no container da API
