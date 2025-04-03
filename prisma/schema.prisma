@@ -43,3 +43,12 @@ model RolePermission {
 
   @@unique([roleId, permissionId], map: "roleId_permissionId")
 }
+
+model RolePermissionView {
+  id         String
+  role       String
+  permission String
+
+  @@map("role_permission_view")
+  @@ignore
+}
