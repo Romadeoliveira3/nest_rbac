@@ -22,9 +22,10 @@ export class PermissionsGuard implements CanActivate {
     if (!requiredPermission) return true;
 
     const request = context.switchToHttp().getRequest();
+    console.log('Request.user recebido no AclGuard:', request.user);
     const user = request?.user;
 
-    console.log('User from request:', user); // Debug log
+    console.log('User from request:', user); 
 
     if (!user || !user.id) {
       throw new UnauthorizedException('Usuário não autenticado');
