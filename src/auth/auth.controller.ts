@@ -1,13 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Patch, Post, Body, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { PermissionsGuard } from 'src/acl/guards/acl.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { RolesGuard } from '../acl/guards/roles.guard';
+import { Roles } from '../acl/decorators/roles.decorator';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { Permission } from '../acl/decorators/permission.decorator';
-
 
 @Controller('auth')
 export class AuthController {
@@ -38,8 +37,8 @@ export class AuthController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, PermissionsGuard)
-  @Permission('delete_user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.authService.remove(id);

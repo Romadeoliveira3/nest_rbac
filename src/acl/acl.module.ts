@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AclService } from './acl.service';
-import { PermissionsGuard } from './guards/acl.guard';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
-  providers: [AclService, PermissionsGuard],
-  exports: [AclService, PermissionsGuard],
+  providers: [AclService, RolesGuard],
+  exports: [AclService, RolesGuard],
 })
 export class AclModule {}

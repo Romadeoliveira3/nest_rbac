@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   api:
     container_name: nest_rbac_api
@@ -15,8 +13,7 @@ services:
     networks:
       - nest_rbac_network
     command: >
-      sh -c "npm install &&
-             npx prisma generate &&
+      sh -c "npx prisma generate &&
              npx prisma migrate deploy &&
              npx prisma db seed &&
              npm run start:dev"

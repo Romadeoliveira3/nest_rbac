@@ -1,4 +1,6 @@
-export interface JwtPayload {
-    id: string; 
+export class JwtPayload {
+    sub: string;
     email: string;
-}
+    role: string;
+  }
+  
