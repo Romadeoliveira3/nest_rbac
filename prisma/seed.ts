@@ -36,6 +36,8 @@ async function main() {
     create: { name: 'user' },
   });
 
+  // 3. Associar permissões à role "admin" (todos os tipos de permissões)
+
   await Promise.all(
     createdPermissions.map((permission) =>
       prisma.rolePermission.upsert({
@@ -53,6 +55,29 @@ async function main() {
       })
     )
   );
+
+  // 4. Associar permissões à role "user" (apenas permissões de visualização)
+  // Exemplo: "user" pode visualizar e atualizar o perfil, mas não criar ou deletar usuários.
+
+  // for (const permission of createdPermissions) {
+  //   if (['view_profile', 'update_profile'].includes(permission.name)) {
+  //     await prisma.rolePermission.upsert({
+  //       where: {
+  //         roleId_permissionId: {
+  //           roleId: userRole.id,
+  //           permissionId: permission.id,
+  //         },
+  //       },
+  //       update: {},
+  //       create: {
+  //         roleId: userRole.id,
+  //         permissionId: permission.id,
+  //       },
+  //     });
+  //   }
+  // }
+
+  // 5. Criar um usuário admin com senha "admin123"
 
   const password = await bcrypt.hash('admin123', 10);
   await prisma.user.upsert({
